@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Link Direto de Imagem do Google Drive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerar Link Direto de Imagem do Google Drive</h1>
+        <p>Cole o link do Google Drive abaixo para extrair o ID da imagem e gerar o link direto:</p>
+        
+        <input type="text" id="driveLink" placeholder="Cole o link do Google Drive aqui...">
+        <button onclick="gerarLinkDireto()">Gerar Link Direto</button>
+
+        <div class="result" id="resultado">
+            <p><strong>Link Direto da Imagem:</strong></p>
+            <p id="linkDireto"></p>
+        </div>
+    </div>
+
+    <script>
+        function gerarLinkDireto() {
+            // Obtém o link do Google Drive
+            const driveLink = document.getElementById('driveLink').value;
+
+            // Expressão regular para extrair o ID do link
+            const regex = /\/d\/([^\/]+)/;
+            const match = driveLink.match(regex);
+
+            if (match && match[1]) {
+                const imageId = match[1];
+                const directLink = `https://lh3.googleusercontent.com/d/${imageId}`;
+
+                // Exibe o link direto na página
+                document.getElementById('linkDireto').innerText = directLink;
+                document.getElementById('linkDireto').innerHTML = `<a href="${directLink}" target="_blank">${directLink}</a>`;
+            } else {
+                document.getElementById('linkDireto').innerText = "Link inválido. Certifique-se de colar um link do Google Drive válido.";
+            }
+        }
+    </script>
+</body>
+</html>
